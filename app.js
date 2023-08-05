@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -10,10 +9,10 @@ const app = express();
 
 const { PORT = 3000 } = process.env;
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 150,
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 150,
+// });
 
 app.use(require('./middlewares/cors'));
 
@@ -22,7 +21,8 @@ mongoose.connect(process.env.NODE_ENV !== 'production' ? 'mongodb://127.0.0.1:27
   useNewUrlParser: true,
 });
 
-app.use(limiter);
+app.use(require('./utils/limiter'));
+
 app.use(helmet());
 app.use(express.json());
 

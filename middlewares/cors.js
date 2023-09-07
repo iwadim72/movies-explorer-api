@@ -1,5 +1,5 @@
 const allowedCors = [
-  'Будущая ссылка на Фронт',
+  'https://bitfilm.nomoreparties.co',
   'http://localhost:3000',
 ];
 
